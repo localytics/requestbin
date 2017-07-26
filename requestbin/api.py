@@ -27,12 +27,17 @@ def bins():
 
 @app.endpoint('api.bin')
 def bin(name):
-    try:
-        bin = db.lookup_bin(name)
-    except KeyError:
-        return _response({'error': "Bin not found"}, 404)
+    # fork hack: if this is a post, create the named bin
+    if request.method == 'POST':
+        newbin = db.create_named_bin(name)
+        return _response(newbin.to_dict())
+    else:
+        try:
+            bin = db.lookup_bin(name)
+        except KeyError:
+            return _response({'error': "Bin not found"}, 404)
 
-    return _response(bin.to_dict())
+        return _response(bin.to_dict())
 
 
 @app.endpoint('api.requests')

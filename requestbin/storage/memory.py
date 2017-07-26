@@ -32,6 +32,12 @@ class MemoryStorage():
         self.bins[bin.name] = bin
         return self.bins[bin.name]
 
+    def create_named_bin(self, name, private=False):
+        bin = Bin(private)
+        bin.name = name
+        self.bins[bin.name] = bin
+        return self.bins[bin.name]
+
     def create_request(self, bin, request):
         bin.add(request)
         self.request_count += 1

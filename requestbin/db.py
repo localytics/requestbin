@@ -18,6 +18,9 @@ db = klass(bin_ttl)
 def create_bin(private=False):
     return db.create_bin(private)
 
+def create_named_bin(name, private=False):
+    return db.create_named_bin(name, private)
+
 def create_request(bin, request):
     return db.create_request(bin, request)
 
